@@ -1,0 +1,75 @@
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <h2>SKILLS AUDIT SYSTEM</h2>
+    </div>
+    <hr class="sidebar-divider">
+    <ul class="sidebar-menu">
+        <li class="menu-item @(currentController == "Dashboard" && currentAction == "Admin" ? "active" : "")">
+            <a href="@Url.Action("Admin", "Dashboard")">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="menu-item @(currentController == "UserManagement" ? "active" : "")">
+            <a href="@Url.Action("UserManagement", "UserManagement")">
+                <i class="fas fa-users"></i>
+                <span>User Management</span>
+            </a>
+        </li>
+        <li class="menu-item @(currentController == "SkillsManagement" ? "active" : "")">
+            <a href="@Url.Action("Index", "SkillsManagement")">
+                <i class="fas fa-brain"></i>
+                <span>Skills Management</span>
+            </a>
+        </li>
+        <li class="menu-item @(currentController == "GapAnalysis" ? "active" : "")">
+            <a href="@Url.Action("Index", "GapAnalysis")">
+                <i class="fas fa-chart-line"></i>
+                <span>Gap Analysis</span>
+            </a>
+        </li>
+        <li class="menu-item @(currentController == "TrainingRecords" ? "active" : "")">
+            <a href="@Url.Action("Index", "TrainingRecords")">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Training Records</span>
+            </a>
+        </li>
+        <li class="menu-item @(currentController == "VerifyDocuments" ? "active" : "")">
+            <a href="@Url.Action("Index", "VerifyDocuments")">
+                <i class="fas fa-file-alt"></i>
+                <span>Verify Documents</span>
+            </a>
+        </li>
+        <li class="menu-item @(currentController == "Notifications" && currentAction == "Admin" ? "active" : "")">
+            <a href="@Url.Action("Admin", "Notifications")">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+        </li>
+        <li class="menu-item @(currentController == "AdminSettings" ? "active" : "")">
+            <a href="@Url.Action("Index", "AdminSettings")">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="#" onclick="signOut()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sign Out</span>
+            </a>
+        </li>
+    </ul>
+    <div class="sidebar-footer">
+        <hr class="sidebar-divider">
+        <div class="footer-links">
+            <a href="/TermsOfUse">Terms of Use</a>
+            <a href="/PrivacyPolicy">Privacy Policy</a>
+            <a href="https://www.treasury.gov.za/POPIA/" target="_blank">POPIA</a>
+        </div>
+    </div>
+</nav>

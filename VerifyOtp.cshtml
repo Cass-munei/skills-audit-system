@@ -1,0 +1,124 @@
+@{
+    Layout = null;
+    ViewData["Title"] = "OTP Verification - Skills Audit System";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        .snackbar { visibility: hidden; min-width: 250px; margin-left: -125px; background-color: #4CAF50; color: #fff; text-align: center; border-radius: 2px; padding: 16px; position: fixed; z-index: 1; left: 50%; bottom: 30px; font-size: 17px; }
+        .snackbar.show { visibility: visible; -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @@-webkit-keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @@keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @@-webkit-keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        @@keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+        <div class="logo-section">
+            <img src="~/images/logo.png" alt="Skills Audit System Logo" class="logo-image" />
+            <h2>WELCOME TO OUR PLATFORM</h2>
+            <p class="subtitle">-National Treasury-</p>
+            <div class="divider"></div>
+        </div>
+        <div class="features">
+            <div class="feature-item">
+                <i class="fas fa-user-cog"></i>
+                <span>Manage skills and training effectively</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-search"></i>
+                <span>Identify Strengths and areas for improvement</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Align skills with career goals</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-upload"></i>
+                <span>Upload supporting documents</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-bell"></i>
+                <span>Get notifications to stay updated</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+        <div class="login-form-container">
+            <h1>SKILLS AUDIT SYSTEM</h1>
+
+            <div class="profile-avatar">
+                <i class="fas fa-user" id="profileIcon"></i>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2>Verify Your Contact</h2>
+                <p>Please enter the 6-digit OTP sent to your contact number.</p>
+            </div>
+
+            <form id="otpForm" action="/Registration/VerifyOtp" method="post">
+                <div class="form-group">
+                    <label for="otp">OTP Code</label>
+                    <div class="input-group">
+                        <i class="fas fa-key"></i>
+                        <input type="text" id="otp" name="otp" required maxlength="6" pattern="\d{6}" placeholder="Enter 6-digit OTP" />
+                    </div>
+                    <span class="error-message">@Html.ValidationMessage("otp")</span>
+                </div>
+
+                @if (ViewData.ModelState["authError"] != null)
+                {
+                    <div class="error-message" style="color: red; text-align: center; margin-bottom: 20px;">
+                        @ViewData.ModelState["authError"].Errors.First().ErrorMessage
+                    </div>
+                }
+
+                <button type="submit" id="verifyBtn" class="login-btn">
+                    <span class="btn-text">VERIFY OTP</span>
+                    <i class="fas fa-check"></i>
+                    <div class="spinner" style="display: none;"></div>
+                </button>
+
+                <div class="signup-link">
+                    <a href="/Registration/Index">Back to Registration</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 Skills Audit System, All rights reserved</p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const verifyBtn = document.getElementById('verifyBtn');
+        const otpForm = document.getElementById('otpForm');
+
+        // Form submission with loading indicator
+        otpForm.addEventListener('submit', function(e) {
+            // Show loading state
+            verifyBtn.disabled = true;
+            verifyBtn.querySelector('.btn-text').style.display = 'none';
+            verifyBtn.querySelector('.fa-check').style.display = 'none';
+            verifyBtn.querySelector('.spinner').style.display = 'block';
+        });
+    });
+</script>
+</body>
+</html>

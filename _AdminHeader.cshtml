@@ -1,0 +1,17 @@
+@{
+    var pageTitle = ViewBag.PageTitle ?? "Admin Panel";
+    var adminId = ViewBag.AdminId ?? "Admin";
+}
+
+<header class="dashboard-header">
+    <div class="header-left">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1>@pageTitle</h1>
+    </div>
+    <div class="header-right">
+        <span class="welcome-text">Welcome, @adminId</span>
+        <img src="~/images/logo.png" alt="Logo" class="logo-avatar" />
+    </div>
+</header>

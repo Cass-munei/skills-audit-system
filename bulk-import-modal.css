@@ -1,0 +1,181 @@
+/* Bulk Import Modal Styles */
+.bulk-import-modal .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.bulk-import-modal .modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 1rem);
+}
+
+.bulk-import-modal .modal-content {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.bulk-import-modal .modal-header {
+    background-color: #0F172A;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 24px 24px 16px;
+}
+
+.bulk-import-modal .modal-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
+.bulk-import-modal .modal-body {
+    padding: 24px;
+}
+
+.bulk-import-modal .instruction-text {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.bulk-import-modal .download-template-btn {
+    background-color: #0F172A;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 20px;
+}
+
+.bulk-import-modal .download-template-btn:hover {
+    background-color: #1e293b;
+}
+
+.bulk-import-modal .file-input-group {
+    margin-top: 20px;
+}
+
+.bulk-import-modal .file-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.bulk-import-modal .file-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #6b7280;
+    background-color: #f9fafb;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bulk-import-modal .file-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.bulk-import-modal .file-input::file-selector-button {
+    background-color: #f3f4f6;
+    color: #374151;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.bulk-import-modal .file-input::file-selector-button:hover {
+    background-color: #e5e7eb;
+}
+
+.bulk-import-modal .modal-footer {
+    border-top: 1px solid #e5e7eb;
+    padding: 16px 24px 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.bulk-import-modal .cancel-btn {
+    background-color: white;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.bulk-import-modal .cancel-btn:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+}
+
+.bulk-import-modal .upload-btn {
+    background-color: #0F172A;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.bulk-import-modal .upload-btn:hover {
+    background-color: #1e293b;
+}
+
+.bulk-import-modal .btn-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bulk-import-modal .btn-close svg {
+    fill: white;
+}
+
+.bulk-import-modal .btn-close:hover {
+    color: #e5e7eb;
+}
+
+.bulk-import-modal .btn-close:hover svg {
+    fill: #e5e7eb;
+}

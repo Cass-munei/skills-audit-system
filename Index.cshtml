@@ -1,0 +1,798 @@
+@model SkillsAuditSystem.Models.VerifyDocumentsViewModel
+@{
+    ViewData["Title"] = "Verify Documents - Skills Audit System";
+    Layout = "_Layout";
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0F172A;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Fixed Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #0F172A;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            margin-bottom: 0;
+        }
+
+        .sidebar-header h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+        }
+
+        .sidebar-divider {
+            border: 0;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 10px 20px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-item {
+            margin-bottom: 0;
+        }
+
+        .menu-item a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item a:hover,
+        .menu-item.active a {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+        }
+
+        .sidebar-footer a {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar-footer a:hover {
+            color: #ccc;
+        }
+
+        .sidebar-footer a i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Search and Filter Styles */
+        .search-filter-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .filter-group select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            margin-left: 250px;
+            width: calc(100% - 250px);
+        }
+
+        .top-bar {
+            background: white;
+            padding: 15px 30px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin: -30px -30px 30px -30px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #3498db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logo-avatar {
+            width: 40px;
+            height: 40px;
+        }
+
+        .welcome-text {
+            font-size: 1rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .main-content {
+            padding-top: 100px;
+        }
+
+        .dashboard-header {
+            position: fixed;
+            top: 0;
+            left: 250px;
+            right: 0;
+            background: #0F172A;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .dashboard-header h1 {
+            color: white;
+            margin: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Documents Management Styles */
+        .documents-management-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .page-title {
+            color: #2c3e50;
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .documents-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .documents-table th,
+        .documents-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .documents-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .documents-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-verified {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dropdown-menu {
+            z-index: 1050;
+            position: absolute;
+            transform: translateY(-100%);
+            top: -10px;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-verify {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-verify:hover {
+            background: #218838;
+        }
+
+        .btn-reject {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-reject:hover {
+            background: #c82333;
+        }
+
+        .btn-view {
+            background: #0F172A;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #1e293b;
+        }
+
+        .no-documents {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .no-documents i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .no-documents h4 {
+            margin-bottom: 10px;
+            color: #495057;
+        }
+
+        .sidebar-footer .sidebar-divider {
+            margin-top: 25px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #7f8c8d;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Fixed Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>SKILLS AUDIT SYSTEM</h2>
+            </div>
+            <hr class="sidebar-divider">
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="@Url.Action("Admin", "Dashboard")">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="@Url.Action("UserManagement", "UserManagement")">
+                        <i class="fas fa-users"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="@Url.Action("Index", "SkillsManagement")">
+                        <i class="fas fa-brain"></i>
+                        <span>Skills Management</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="@Url.Action("Index", "GapAnalysis")">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Gap Analysis</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="@Url.Action("Index", "TrainingRecords")">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Training Records</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a href="@Url.Action("Index", "VerifyDocuments")">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Verify Documents</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="@Url.Action("Index", "Notifications")">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                 <li class="menu-item">
+                    <a href="@Url.Action("Index", "AdminSettings")">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" onclick="signOut()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <hr class="sidebar-divider">
+                <div class="footer-links">
+                    <a href="/TermsOfUse">Terms of Use</a>
+                    <a href="/PrivacyPolicy">Privacy Policy</a>
+                    <a href="https://www.treasury.gov.za/POPIA/" target="_blank">POPIA</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>Verify Documents</h1>
+                </div>
+                <div class="header-right">
+                    <span class="welcome-text">Welcome, @Model.AdminId</span>
+                    <img src="~/images/logo.png" alt="Logo" class="logo-avatar" />
+                </div>
+            </header>
+
+            <!-- Search and Filter Section -->
+            <div class="search-filter-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search Employee Name or Category...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Department</label>
+                        <select id="departmentFilter">
+                            <option value="">All Departments</option>
+                            <option value="Office of the Director-General">Office of the Director-General</option>
+                            <option value="Intergovernmental Relations">Intergovernmental Relations</option>
+                            <option value="Office of the General Counsel">Office of the General Counsel</option>
+                            <option value="Budget Preparation / Budget Office">Budget Preparation / Budget Office</option>
+                            <option value="Economic Policy and International Cooperation">Economic Policy and International Cooperation</option>
+                            <option value="Office of the Accountant-General">Office of the Accountant-General</option>
+                            <option value="Tax & Financial Sector Policy">Tax & Financial Sector Policy</option>
+                            <option value="Assets & Liability Management">Assets & Liability Management</option>
+                            <option value="Public Finance / Expenditure Control">Public Finance / Expenditure Control</option>
+                            <option value="Corporate / Support Services (HR, ICT, Facilities, Legal, Security, etc.)">Corporate / Support Services (HR, ICT, Facilities, Legal, Security, etc.)</option>
+                            <option value="Chief Procurement Office">Chief Procurement Office</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Category</label>
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="Identity & Compliance Documents">Identity & Compliance Documents</option>
+                            <option value="Educational Qualifications">Educational Qualifications</option>
+                            <option value="Professional & Employment Records">Professional & Employment Records</option>
+                            <option value="Training & Development">Training & Development</option>
+                            <option value="Regulatory & Industry-Specific Documents">Regulatory & Industry-Specific Documents</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="A. Review">A. Review</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Verified">Verified</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Filter by:</label>
+                        <button class="btn-action btn-view" onclick="applyFilters()">
+                            <i class="fas fa-filter"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Documents.Any())
+            {
+                <div class="card mb-4">
+                    <div class="card-header" style="background-color: #0F172A; color: white;">
+                        <h5 class="mb-0">Employee Documents</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="documentsTable">
+                                <thead style="background-color: #0F172A; color: white;">
+                                    <tr>
+                                        <th>Employee Name</th>
+                                        <th>Category</th>
+                                        <th>Name</th>
+                                        <th>File Name</th>
+                                        <th>Upload Date</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var document in Model.Documents)
+                                    {
+                                        <tr>
+                                            <td>@document.EmployeeName</td>
+                                            <td>@document.Type</td>
+                                            <td>@document.Name</td>
+                                            <td>@document.FileName</td>
+                                            <td>@document.UploadedAt.ToString("yyyy-MM-dd")</td>
+                                            <td>@document.Department</td>
+                                            <td>
+                                                <span class="status-badge @(document.Status.ToLower() == "pending" ? "status-pending" : document.Status.ToLower() == "verified" ? "status-verified" : document.Status.ToLower() == "rejected" ? "status-rejected" : document.Status.ToLower() == "a. review" ? "status-pending" : "status-pending")">
+                                                    @(document.Status.ToLower() == "verified" ? "Verified" : document.Status.ToLower() == "rejected" ? "Rejected" : document.Status.ToLower() == "a. review" ? "A. Review" : document.Status)
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button class="btn-action btn-view" onclick="viewDocument('@document.UserId', '@document.DocumentId')">
+                                                        <i class="fas fa-eye"></i> View
+                                                    </button>
+                                                    <div class="dropdown">
+                                                        <button class="btn-action btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-v"></i> Options
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <li><a class="dropdown-item" href="#" onclick="verifyDocument('@document.UserId', '@document.DocumentId', 'Verify')"><i class="fas fa-check"></i> Verify</a></li>
+                                                            <li><a class="dropdown-item" href="#" onclick="verifyDocument('@document.UserId', '@document.DocumentId', 'Reject')"><i class="fas fa-times"></i> Reject</a></li>
+                                                            <li><a class="dropdown-item" href="#" onclick="verifyDocument('@document.UserId', '@document.DocumentId', 'Pending')"><i class="fas fa-clock"></i> Pending</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <button class="btn-action btn-danger" onclick="deleteDocument('@document.UserId', '@document.DocumentId')">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="no-documents">
+                    <i class="fas fa-file-alt"></i>
+                    <h4>No Documents Found</h4>
+                    <p>There are no employee documents to verify at this time.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+        // Initialize filters based on query parameter
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const statusParam = urlParams.get('status');
+            if (statusParam) {
+                const statusFilter = document.getElementById('statusFilter');
+                if (statusFilter) {
+                    statusFilter.value = statusParam;
+                    filterDocuments();
+                }
+            }
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            filterDocuments();
+        });
+
+        // Filter functionality
+        function applyFilters() {
+            filterDocuments();
+        }
+
+        function filterDocuments() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const department = document.getElementById('departmentFilter').value;
+            const category = document.getElementById('categoryFilter').value;
+            const status = document.getElementById('statusFilter').value;
+
+            const rows = document.querySelectorAll('#documentsTable tbody tr');
+
+            rows.forEach(row => {
+                const employeeName = row.cells[0].textContent.toLowerCase();
+                const documentCategory = row.cells[1].textContent.toLowerCase();
+                const documentDepartment = row.cells[5].textContent;
+                const documentStatus = row.cells[6].textContent.trim();
+
+                const matchesSearch = employeeName.includes(searchText) || documentCategory.includes(searchText);
+                const matchesDepartment = !department || documentDepartment === department;
+                const matchesCategory = !category || documentCategory === category.toLowerCase();
+                const matchesStatus = !status || documentStatus === status;
+
+                if (matchesSearch && matchesDepartment && matchesCategory && matchesStatus) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function viewDocument(userId, documentId) {
+            if (!documentId) {
+                alert('No file uploaded for this document');
+                return;
+            }
+            fetch(`/api/users/${userId}/documents/${documentId}`)
+                .then(response => response.json())
+                .then(document => {
+                    if (document.url) {
+                        // For server-stored files, open directly
+                        if (document.url.startsWith('/uploads/')) {
+                            window.open(document.url, '_blank');
+                        } else {
+                            // For Firebase Storage URLs, open in new tab
+                            const newTab = window.open();
+                            newTab.document.write(`<iframe src="${document.url}" style="width:100%; height:100vh; border:none;"></iframe>`);
+                        }
+                    } else {
+                        alert('File not found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error viewing document');
+                });
+        }
+
+        function verifyDocument(userId, documentId, status) {
+            if (confirm(`Are you sure you want to ${status.toLowerCase()} this document?`)) {
+                fetch('/VerifyDocuments/VerifyDocument', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'userId=' + encodeURIComponent(userId) + '&documentId=' + encodeURIComponent(documentId) + '&status=' + encodeURIComponent(status)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Error verifying document: ' + error.message);
+                });
+            }
+        }
+
+        function deleteDocument(userId, documentId) {
+            if (confirm('Are you sure you want to delete this document? This action cannot be undone.')) {
+                fetch('/VerifyDocuments/DeleteDocument', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'userId=' + encodeURIComponent(userId) + '&documentId=' + encodeURIComponent(documentId)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Error deleting document: ' + error.message);
+                });
+            }
+        }
+
+        function signOut() {
+            if (confirm('Are you sure you want to sign out?')) {
+                fetch('/Dashboard/SignOut', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }).then(() => {
+                    window.location.href = '/Login/Index';
+                });
+            }
+        }
+    </script>
+</body>
+</html>
