@@ -12,7 +12,7 @@ A full-stack system developed to capture, manage, and analyse user skills data a
 ## Tech Stack
 - ASP.NET MVC (Web)
 - Flutter (Mobile)
-- SQL Server
+- Firebase
 
 ## My Contribution
 - Developed both web and mobile applications
