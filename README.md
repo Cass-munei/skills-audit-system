@@ -10,8 +10,8 @@ A full-stack system developed to capture, manage, and analyse user skills data a
 - Cross-platform accessibility
 
 ## Tech Stack
-- ASP.NET MVC (Web)
-- Flutter (Mobile)
+- ASP.NET MVC (c#)
+- Flutter (Dart)
 - Firebase
 
 ## My Contribution
