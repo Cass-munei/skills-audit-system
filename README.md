@@ -21,5 +21,5 @@ A full-stack system developed to capture, manage, and analyse user skills data a
 - Performed testing and debugging
 
 ## Project Structure
-- web-app/ → ASP.NET MVC system
+- web - app/ → ASP.NET MVC system
 - mobile-app/ → Flutter application
