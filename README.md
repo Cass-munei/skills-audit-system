@@ -14,7 +14,7 @@ A full-stack system developed to capture, manage, and analyse user skills data a
 - Flutter (Dart)
 - Firebase
 
-## My Contribution
+## My Contribution (Group Leader)
 - Developed both web and mobile applications
 - Designed database structure
 - Implemented features and user interfaces
